@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Blue circle background -->
+  <circle cx="256" cy="256" r="256" fill="#1a73e8"/>
+  
+  <!-- White "D" letter -->
+  <path d="M150 150H256C300 150 350 200 350 256C350 312 300 362 256 362H150V150Z" fill="white"/>
+  
+  <!-- Hollow part of the "D" -->
+  <path d="M200 200H256C275 200 300 226 300 256C300 286 275 312 256 312H200V200Z" fill="#1a73e8"/>
+</svg> 

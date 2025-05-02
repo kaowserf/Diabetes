@@ -1,0 +1,53 @@
+# Instructions for generating favicon.ico
+
+To generate a proper favicon.ico file from the SVG logo, you can use one of these methods:
+
+## Method 1: Using an online converter
+1. Visit a site like https://convertio.co/svg-ico/ or https://realfavicongenerator.net/
+2. Upload your SVG logo file (public/favicon/logo.svg)
+3. Download the generated favicon.ico
+4. Place it in the public folder of your Next.js project
+
+## Method 2: Using ImageMagick (command line)
+If you have ImageMagick installed:
+
+```bash
+# First convert SVG to PNG
+convert -background none -density 300 public/favicon/logo.svg -resize 256x256 favicon-256.png
+
+# Then convert PNG to ICO with multiple sizes
+convert favicon-256.png -define icon:auto-resize=64,48,32,16 public/favicon.ico
+
+# Clean up temporary file
+rm favicon-256.png
+```
+
+## Method 3: Using a Node.js script
+Install the required packages:
+```bash
+npm install sharp
+```
+
+Create a script (generate-favicon.js):
+```javascript
+const sharp = require('sharp');
+const fs = require('fs');
+const path = require('path');
+
+async function generateFavicon() {
+  // Convert SVG to PNG first
+  await sharp('public/favicon/logo.svg')
+    .resize(256, 256)
+    .png()
+    .toFile('public/favicon/favicon-256.png');
+  
+  // You'll need a separate tool to convert PNG to ICO
+  console.log('PNG generated! Now convert it to ICO using an online tool.');
+}
+
+generateFavicon().catch(console.error);
+```
+
+## Important:
+The current favicon.ico in your project is a placeholder. 
+For production, replace it with a real .ico file using one of the methods above. 
