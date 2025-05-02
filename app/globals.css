@@ -153,6 +153,43 @@ body {
   box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
 }
 
+/* Footer links hover effect */
+.footer-link {
+  position: relative;
+  display: inline-block;
+  transition: all var(--transition-medium);
+}
+
+.footer-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--primary);
+  transition: width var(--transition-medium);
+}
+
+.footer-link:hover {
+  color: white;
+  transform: translateX(4px);
+}
+
+.footer-link:hover::after {
+  width: 100%;
+}
+
+/* Social icon hover effect */
+.social-icon {
+  transition: all var(--transition-medium);
+}
+
+.social-icon:hover {
+  transform: translateY(-5px) scale(1.1);
+  color: var(--primary);
+}
+
 /* Optimized animations */
 @keyframes float {
   0%, 100% {
@@ -204,4 +241,88 @@ body {
   overflow: hidden;
   transform-origin: center;
   will-change: transform;
+}
+
+/* New section reveal animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-reveal {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+  will-change: transform, opacity;
+}
+
+.animate-reveal.delay-1 {
+  animation-delay: 0.1s;
+}
+
+.animate-reveal.delay-2 {
+  animation-delay: 0.2s;
+}
+
+.animate-reveal.delay-3 {
+  animation-delay: 0.3s;
+}
+
+.animate-reveal.delay-4 {
+  animation-delay: 0.4s;
+}
+
+/* Card hover effects */
+.hover-card {
+  transition: all var(--transition-medium);
+}
+
+.hover-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Feature icon animations */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.feature-icon {
+  transition: all var(--transition-medium);
+}
+
+.feature-icon:hover {
+  animation: pulse 1s infinite;
+  color: var(--primary);
+}
+
+/* Language switcher animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.lang-switcher {
+  transition: all var(--transition-medium);
+}
+
+.lang-switcher:hover .lang-icon {
+  animation: spin 1s forwards;
 }
