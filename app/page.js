@@ -825,7 +825,7 @@ export default function Home() {
               <h3 className="text-lg font-semibold mb-4">{t.legal}</h3>
               <ul className="space-y-2">
                 <li><Link href="#" className="text-gray-400 footer-link">{t.aboutUs}</Link></li>
-                <li><Link href="#" className="text-gray-400 footer-link">{t.privacyPolicy}</Link></li>
+                <li><Link href="/privacy-policy" className="text-gray-400 footer-link">{t.privacyPolicy}</Link></li>
                 <li><Link href="#" className="text-gray-400 footer-link">{t.termsOfService}</Link></li>
               </ul>
             </div>
