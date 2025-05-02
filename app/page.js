@@ -662,7 +662,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-gray-600 dark:text-gray-300 italic">
-                "{t.testimonial1}"
+                &quot;{t.testimonial1}&quot;
               </p>
             </div>
             
@@ -677,7 +677,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-gray-600 dark:text-gray-300 italic">
-                "{t.testimonial2}"
+                &quot;{t.testimonial2}&quot;
               </p>
             </div>
           </div>
