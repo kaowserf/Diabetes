@@ -316,7 +316,7 @@ body {
 .hero-image-container {
   position: relative;
   border-radius: 1.2rem;
-  padding: 1rem;
+  padding: 0;
   background: linear-gradient(145deg, rgba(59, 130, 246, 0.2), rgba(16, 185, 129, 0.2));
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   animation: fadeInScale 0.8s ease-out forwards, borderGlow 4s ease-in-out infinite 0.8s;
@@ -324,16 +324,16 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .hero-image {
-  border-radius: 0.5rem;
+  border-radius: 0;
   overflow: hidden;
   transform-origin: center;
   will-change: transform;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 /* New section reveal animations */
