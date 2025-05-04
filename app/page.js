@@ -358,7 +358,7 @@ export default function Home() {
                   src="/debtpwebimg.jpg"
                   alt="Diabeto App Screenshot"
                   fill
-                  className="object-contain"
+                  className="object-cover"
                   priority
                 />
               </div>
