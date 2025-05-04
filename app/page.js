@@ -365,7 +365,7 @@ export default function Home() {
                   src="/logo.jpeg"
                   alt="Diabeto Logo"
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   priority
                 />
               </div>
