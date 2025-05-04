@@ -362,10 +362,10 @@ export default function Home() {
             <div className="hero-image-container w-[220px] sm:w-[280px] md:w-[300px] h-[380px] sm:h-[480px] md:h-[520px]">
               <div className="relative w-full h-full animate-float hero-image">
                 <Image
-                  src="/debtpwebimg.jpg"
-                  alt="Diabeto App Screenshot"
+                  src="/logo.jpeg"
+                  alt="Diabeto Logo"
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   priority
                 />
               </div>
