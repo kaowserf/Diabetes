@@ -355,7 +355,7 @@ export default function Home() {
             <div className="hero-image-container w-[220px] sm:w-[280px] md:w-[300px] h-[380px] sm:h-[480px] md:h-[520px]">
               <div className="relative w-full h-full animate-float hero-image">
                 <Image
-                  src="/mainimg.png"
+                  src="/debtpwebimg.jpg"
                   alt="Diabeto App Screenshot"
                   fill
                   className="object-contain"
@@ -750,7 +750,7 @@ export default function Home() {
                 <ul className="space-y-4">
                   <li className="flex items-start">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary mr-3 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1 1 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" clipRule="evenodd" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                     <span className="text-gray-600 dark:text-gray-300">{t.contactAddress}</span>
