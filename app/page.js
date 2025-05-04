@@ -362,7 +362,7 @@ export default function Home() {
             <div className="hero-image-container w-[220px] sm:w-[280px] md:w-[300px] h-[380px] sm:h-[480px] md:h-[520px]">
               <div className="relative w-full h-full animate-float hero-image">
                 <Image
-                  src="/logo.jpeg"
+                  src="/diaweblogo.jpg"
                   alt="Diabeto Logo"
                   fill
                   className="object-contain"
@@ -471,7 +471,7 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-t from-blue-600/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-4">
                 <p className="text-white font-medium text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Health Reports</p>
               </div>
-              <Image 
+          <Image
                 src="/s4.png" 
                 alt="Health Reports" 
                 width={250} 
@@ -660,7 +660,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
             <div className="bg-white dark:bg-gray-700 p-8 rounded-lg shadow-md">
               <div className="flex items-center mb-6">
-                <Image 
+          <Image
                   src="/profile-pic (8).png" 
                   alt="User Avatar" 
                   width={60} 
@@ -783,8 +783,8 @@ export default function Home() {
               
               <a 
                 href="https://wa.link/uske6b" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+          target="_blank"
+          rel="noopener noreferrer"
                 className="group flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600 text-white font-medium py-4 px-6 rounded-lg shadow-md hover:shadow-lg transition-all"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 fill-current" viewBox="0 0 24 24">
