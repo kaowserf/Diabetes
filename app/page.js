@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { initScrollAnimations, addScrollProgress } from "./scrollAnimations";
 
 // Translation dictionary for all text content
 const translations = {
@@ -225,6 +226,12 @@ export default function Home() {
   const [formStatus, setFormStatus] = useState('');
   const t = translations[language];
   
+  // Initialize scroll animations when component mounts
+  useEffect(() => {
+    initScrollAnimations();
+    addScrollProgress();
+  }, []);
+  
   const toggleLanguage = () => {
     setLanguage(language === 'fr' ? 'en' : 'fr');
   };
@@ -335,7 +342,7 @@ export default function Home() {
       {/* Hero Section */}
       <section id="hero" className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800 py-12 md:py-24">
         <div className="container mx-auto px-4 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-          <div className="space-y-6 md:space-y-8 text-center md:text-left">
+          <div className="space-y-6 md:space-y-8 text-center md:text-left scroll-slide-left">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
               {t.heroTitle}
             </h1>
@@ -351,7 +358,7 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="flex justify-center mt-8 md:mt-0">
+          <div className="flex justify-center mt-8 md:mt-0 scroll-slide-right">
             <div className="hero-image-container w-[220px] sm:w-[280px] md:w-[300px] h-[380px] sm:h-[480px] md:h-[520px]">
               <div className="relative w-full h-full animate-float hero-image">
                 <Image
@@ -370,40 +377,40 @@ export default function Home() {
       {/* Features Section */}
       <section id="features" className="section py-12 sm:py-16 px-4 sm:px-6 bg-white dark:bg-gray-900">
         <div className="container mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10 sm:mb-16 animate-reveal">{t.featuresTitle}</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10 sm:mb-16 scroll-fade-in">{t.featuresTitle}</h2>
           
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12">
-            <div className="flex flex-col items-start space-y-4 hover-card p-6 rounded-lg animate-reveal delay-1">
+            <div className="flex flex-col items-start space-y-4 hover-card p-6 rounded-lg scroll-fade-in">
               <div className="text-4xl feature-icon">📈</div>
               <h3 className="text-xl font-semibold">{t.bloodSugarMonitoring}</h3>
               <p className="text-gray-600 dark:text-gray-400">{t.bloodSugarDesc}</p>
             </div>
             
-            <div className="flex flex-col items-start space-y-4 hover-card p-6 rounded-lg animate-reveal delay-2">
+            <div className="flex flex-col items-start space-y-4 hover-card p-6 rounded-lg scroll-fade-in">
               <div className="text-4xl feature-icon">🕒</div>
               <h3 className="text-xl font-semibold">{t.smartReminders}</h3>
               <p className="text-gray-600 dark:text-gray-400">{t.smartRemindersDesc}</p>
             </div>
             
-            <div className="flex flex-col items-start space-y-4 hover-card p-6 rounded-lg animate-reveal delay-3">
+            <div className="flex flex-col items-start space-y-4 hover-card p-6 rounded-lg scroll-fade-in">
               <div className="text-4xl feature-icon">🍽️</div>
               <h3 className="text-xl font-semibold">{t.mealTracking}</h3>
               <p className="text-gray-600 dark:text-gray-400">{t.mealTrackingDesc}</p>
             </div>
             
-            <div className="flex flex-col items-start space-y-4 hover-card p-6 rounded-lg animate-reveal delay-1">
+            <div className="flex flex-col items-start space-y-4 hover-card p-6 rounded-lg scroll-fade-in">
               <div className="text-4xl feature-icon">🏃</div>
               <h3 className="text-xl font-semibold">{t.activityTracking}</h3>
               <p className="text-gray-600 dark:text-gray-400">{t.activityTrackingDesc}</p>
             </div>
             
-            <div className="flex flex-col items-start space-y-4 hover-card p-6 rounded-lg animate-reveal delay-2">
+            <div className="flex flex-col items-start space-y-4 hover-card p-6 rounded-lg scroll-fade-in">
               <div className="text-4xl feature-icon">📚</div>
               <h3 className="text-xl font-semibold">{t.education}</h3>
               <p className="text-gray-600 dark:text-gray-400">{t.educationDesc}</p>
             </div>
             
-            <div className="flex flex-col items-start space-y-4 hover-card p-6 rounded-lg animate-reveal delay-3">
+            <div className="flex flex-col items-start space-y-4 hover-card p-6 rounded-lg scroll-fade-in">
               <div className="text-4xl feature-icon">👨‍⚕️</div>
               <h3 className="text-xl font-semibold">{t.shareReports}</h3>
               <p className="text-gray-600 dark:text-gray-400">{t.shareReportsDesc}</p>
@@ -412,13 +419,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Screenshot Section */}
+      {/* Screenshot Section with parallax effect */}
       <section id="screenshots" className="section bg-gray-50 dark:bg-gray-800">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-16 animate-reveal">{t.screenshotsTitle}</h2>
+          <h2 className="text-3xl font-bold text-center mb-16 scroll-fade-in">{t.screenshotsTitle}</h2>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="group relative overflow-hidden rounded-lg shadow-md transition-all duration-500 hover-card animate-reveal delay-1">
+            <div className="group relative overflow-hidden rounded-lg shadow-md transition-all duration-500 hover-card scroll-scale-in">
               <div className="absolute inset-0 bg-gradient-to-t from-blue-600/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-4">
                 <p className="text-white font-medium text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Blood Sugar Tracking</p>
               </div>
@@ -427,11 +434,12 @@ export default function Home() {
                 alt="Blood Sugar Tracking" 
                 width={250} 
                 height={400}
-                className="w-full h-auto transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-1"
+                className="w-full h-auto transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-1 parallax-element"
+                data-speed="0.1"
               />
             </div>
             
-            <div className="group relative overflow-hidden rounded-lg shadow-md transition-all duration-500 hover-card animate-reveal delay-2">
+            <div className="group relative overflow-hidden rounded-lg shadow-md transition-all duration-500 hover-card scroll-scale-in">
               <div className="absolute inset-0 bg-gradient-to-t from-blue-600/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-4">
                 <p className="text-white font-medium text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Meal Tracking</p>
               </div>
@@ -440,11 +448,12 @@ export default function Home() {
                 alt="Meal Tracking" 
                 width={250} 
                 height={400}
-                className="w-full h-auto transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-1"
+                className="w-full h-auto transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-1 parallax-element"
+                data-speed="0.15"
               />
             </div>
             
-            <div className="group relative overflow-hidden rounded-lg shadow-md transition-all duration-500 hover-card animate-reveal delay-3">
+            <div className="group relative overflow-hidden rounded-lg shadow-md transition-all duration-500 hover-card scroll-scale-in">
               <div className="absolute inset-0 bg-gradient-to-t from-blue-600/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-4">
                 <p className="text-white font-medium text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Activity Monitoring</p>
               </div>
@@ -453,11 +462,12 @@ export default function Home() {
                 alt="Activity Monitoring" 
                 width={250} 
                 height={400}
-                className="w-full h-auto transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-1"
+                className="w-full h-auto transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-1 parallax-element"
+                data-speed="0.2"
               />
             </div>
             
-            <div className="group relative overflow-hidden rounded-lg shadow-md transition-all duration-500 hover-card animate-reveal delay-4">
+            <div className="group relative overflow-hidden rounded-lg shadow-md transition-all duration-500 hover-card scroll-scale-in">
               <div className="absolute inset-0 bg-gradient-to-t from-blue-600/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-4">
                 <p className="text-white font-medium text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Health Reports</p>
               </div>
@@ -466,7 +476,8 @@ export default function Home() {
                 alt="Health Reports" 
                 width={250} 
                 height={400}
-                className="w-full h-auto transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-1"
+                className="w-full h-auto transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-1 parallax-element"
+                data-speed="0.25"
               />
             </div>
           </div>
@@ -476,9 +487,9 @@ export default function Home() {
       {/* Who is it for Section */}
       <section id="who-for" className="section bg-white dark:bg-gray-900">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-16">{t.whoForTitle}</h2>
+          <h2 className="text-3xl font-bold text-center mb-16 scroll-fade-in">{t.whoForTitle}</h2>
           
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-3xl mx-auto scroll-slide-left">
             <ul className="space-y-4 text-lg">
               <li className="flex items-center">
                 <div className="bg-blue-100 dark:bg-blue-900 rounded-full p-2 mr-3">
