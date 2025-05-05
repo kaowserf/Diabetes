@@ -127,8 +127,8 @@ const translations = {
     blog: "Blog",
     
     // Hero section
-    heroTitle: "Diabétiques et sportifs gérez votre sucre en temps réel avec My Diabeto",
-    heroSubtitle: "avec la montre et téléphone c'est très parlant et percutant",
+    heroTitle: "Diabetics and athletes: manage your blood sugar in real-time with My Diabeto",
+    heroSubtitle: "with the watch and phone it's very clear and impactful",
     downloadApp: "🔵 Download the App",
     learnHow: "⚪ Learn How It Works",
     
@@ -281,6 +281,15 @@ export default function Home() {
     const newLanguage = language === 'fr' ? 'en' : 'fr';
     console.log('Toggling language from', language, 'to', newLanguage);
     setLanguage(newLanguage);
+    
+    // Force component update with new translations
+    const t = translations[newLanguage];
+    document.title = newLanguage === 'fr' 
+      ? 'Diabétiques et sportifs gérez votre sucre en temps réel avec My Diabeto'
+      : 'Manage your blood sugar in real-time with My Diabeto';
+      
+    // Log to confirm the heroTitle is changing
+    console.log('New heroTitle:', t.heroTitle);
   };
 
   const toggleMobileMenu = () => {
