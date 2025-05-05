@@ -473,17 +473,23 @@ export default function Home() {
       {/* Screenshot Section with actual app screenshots */}
       <section id="screenshots" className="section bg-gray-50 dark:bg-gray-800 py-12">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-8 scroll-fade-in">{t.screenshotsTitle}</h2>
-          
-          <p className="text-center text-gray-600 dark:text-gray-400 mb-6 max-w-3xl mx-auto">
-            {language === 'fr' ? 
-              "Avec la montre et téléphone c'est très parlant et percutant" : 
-              "With the watch and phone it's very clear and impactful"}
-          </p>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4 inline-block relative scroll-fade-in">
+              {t.screenshotsTitle}
+              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-2/3 h-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full"></div>
+            </h2>
+            
+            <p className="text-center text-gray-600 dark:text-gray-400 mb-6 max-w-3xl mx-auto">
+              {language === 'fr' ? 
+                "Avec la montre et téléphone c'est très parlant et percutant" : 
+                "With the watch and phone it's very clear and impactful"}
+            </p>
+          </div>
           
           {/* Image Carousel */}
+          
           <div className="mb-16 max-w-lg mx-auto">
-            <div className="relative h-[550px] w-full overflow-hidden rounded-xl shadow-2xl">
+            <div className="relative h-[550px] w-full overflow-hidden rounded-xl shadow-2xl group hover:shadow-blue-400/30 transition-all duration-500">
               {carouselImages.map((image, index) => (
                 <div
                   key={index}
@@ -495,88 +501,140 @@ export default function Home() {
                     src={image.src}
                     alt={image.alt}
                     fill
-                    className="object-cover object-center"
+                    className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                     priority={index === 0}
                   />
                 </div>
               ))}
               
+              {/* Overlay gradient on hover */}
+              <div className="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"></div>
+              
               {/* Carousel Indicators */}
-              <div className="absolute bottom-4 left-0 right-0 z-20 flex justify-center space-x-2">
+              <div className="absolute bottom-4 left-0 right-0 z-20 flex justify-center space-x-3">
                 {carouselImages.map((_, index) => (
                   <button
                     key={index}
-                    className={`w-3 h-3 rounded-full transition-all ${
-                      index === currentImageIndex ? "bg-white scale-125" : "bg-white/50"
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      index === currentImageIndex 
+                        ? "bg-white scale-125 shadow-lg shadow-white/50" 
+                        : "bg-white/50 hover:bg-white/70"
                     }`}
                     onClick={() => setCurrentImageIndex(index)}
                     aria-label={`Go to slide ${index + 1}`}
                   />
                 ))}
               </div>
+              
+              {/* Navigation Arrows */}
+              <button 
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 p-2 rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                onClick={() => setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? carouselImages.length - 1 : prevIndex - 1))}
+                aria-label="Previous image"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button 
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 p-2 rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                onClick={() => setCurrentImageIndex((prevIndex) => (prevIndex === carouselImages.length - 1 ? 0 : prevIndex + 1))}
+                aria-label="Next image"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
             </div>
           </div>
           
           <div className="flex flex-wrap justify-center gap-4">
-            <div className="overflow-hidden">
+            <div className="overflow-hidden rounded-lg transform transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-xl hover:z-10 relative group">
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
               <Image 
                 src="/diaimg/460x0w.png" 
                 alt="Diabeto Home Dashboard" 
                 width={325} 
                 height={650}
-                className="rounded-lg shadow-lg"
+                className="rounded-lg shadow-lg group-hover:shadow-blue-400/30"
               />
+              <div className="absolute inset-0 border-2 border-transparent group-hover:border-blue-400/50 rounded-lg transition-all duration-300"></div>
             </div>
             
-            <div className="overflow-hidden">
+            <div className="overflow-hidden rounded-lg transform transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-xl hover:z-10 relative group">
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
               <Image 
                 src="/diaimg/600x0w.png" 
                 alt="Blood Sugar Tracking" 
                 width={325} 
                 height={650}
-                className="rounded-lg shadow-lg"
+                className="rounded-lg shadow-lg group-hover:shadow-blue-400/30"
               />
+              <div className="absolute inset-0 border-2 border-transparent group-hover:border-blue-400/50 rounded-lg transition-all duration-300"></div>
             </div>
             
-            <div className="overflow-hidden">
+            <div className="overflow-hidden rounded-lg transform transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-xl hover:z-10 relative group">
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
               <Image 
                 src="/diaimg/600x0w (1).png" 
                 alt="Meal Tracking" 
                 width={325} 
                 height={650}
-                className="rounded-lg shadow-lg"
+                className="rounded-lg shadow-lg group-hover:shadow-blue-400/30"
               />
+              <div className="absolute inset-0 border-2 border-transparent group-hover:border-blue-400/50 rounded-lg transition-all duration-300"></div>
             </div>
             
-            <div className="overflow-hidden">
+            <div className="overflow-hidden rounded-lg transform transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-xl hover:z-10 relative group">
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
               <Image 
                 src="/diaimg/600x0w (2).png" 
                 alt="Activity Monitoring" 
                 width={325} 
                 height={650}
-                className="rounded-lg shadow-lg"
+                className="rounded-lg shadow-lg group-hover:shadow-blue-400/30"
               />
+              <div className="absolute inset-0 border-2 border-transparent group-hover:border-blue-400/50 rounded-lg transition-all duration-300"></div>
             </div>
             
-            <div className="overflow-hidden">
+            <div className="overflow-hidden rounded-lg transform transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-xl hover:z-10 relative group">
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
               <Image 
                 src="/diaimg/600x0w (3).png" 
                 alt="Stats and Reports" 
                 width={325} 
                 height={650}
-                className="rounded-lg shadow-lg"
+                className="rounded-lg shadow-lg group-hover:shadow-blue-400/30"
               />
+              <div className="absolute inset-0 border-2 border-transparent group-hover:border-blue-400/50 rounded-lg transition-all duration-300"></div>
             </div>
             
-            <div className="overflow-hidden">
+            <div className="overflow-hidden rounded-lg transform transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-xl hover:z-10 relative group">
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
               <Image 
                 src="/diaimg/600x0w (4).png" 
                 alt="Advanced Analytics" 
                 width={325} 
                 height={650}
-                className="rounded-lg shadow-lg"
+                className="rounded-lg shadow-lg group-hover:shadow-blue-400/30"
               />
+              <div className="absolute inset-0 border-2 border-transparent group-hover:border-blue-400/50 rounded-lg transition-all duration-300"></div>
             </div>
+          </div>
+          
+          {/* View More Button */}
+          <div className="mt-10 text-center">
+            <Link 
+              href="https://apps.apple.com/fr/app/my-diabeto/id6737922193?ign-itscg=30200&ign-itsct=apps_box_link&mttnsubad=6737922193&platform=iphone" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 px-6 py-3 rounded-full transform transition-all duration-300 hover:scale-105 hover:shadow-lg"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
+              </svg>
+              {language === 'fr' ? 'Voir My Diabeto en action' : 'See My Diabeto in action'}
+            </Link>
           </div>
         </div>
       </section>
