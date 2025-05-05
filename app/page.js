@@ -280,16 +280,27 @@ export default function Home() {
   const toggleLanguage = () => {
     const newLanguage = language === 'fr' ? 'en' : 'fr';
     console.log('Toggling language from', language, 'to', newLanguage);
+    
+    // Force a re-render with the new language
     setLanguage(newLanguage);
     
-    // Force component update with new translations
-    const t = translations[newLanguage];
+    // Force immediate update with the updated translations
+    const newT = translations[newLanguage];
     document.title = newLanguage === 'fr' 
       ? 'Diabétiques et sportifs gérez votre sucre en temps réel avec My Diabeto'
       : 'Manage your blood sugar in real-time with My Diabeto';
       
     // Log to confirm the heroTitle is changing
-    console.log('New heroTitle:', t.heroTitle);
+    console.log('New heroTitle:', newT.heroTitle);
+    
+    // Force DOM update
+    setTimeout(() => {
+      const heroTitle = document.querySelector('#hero h1');
+      if (heroTitle) {
+        heroTitle.textContent = newT.heroTitle;
+        console.log('Updated hero title element text');
+      }
+    }, 0);
   };
 
   const toggleMobileMenu = () => {
@@ -403,10 +414,10 @@ export default function Home() {
       <section id="hero" className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800 py-12 md:py-24">
         <div className="container mx-auto px-4 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="space-y-6 md:space-y-8 text-center md:text-left scroll-slide-left">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight" key={language}>
               {t.heroTitle}
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300">
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300" key={`${language}-subtitle`}>
               {t.heroSubtitle}
             </p>
             <div className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4">
