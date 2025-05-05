@@ -405,7 +405,7 @@ export default function Home() {
           
           <div className="pt-4 grid grid-cols-2 gap-3">
             <Link href="#contact" className="btn-secondary nav-btn text-sm py-3 text-center" onClick={toggleMobileMenu}>{t.contact}</Link>
-            <Link href="https://apps.apple.com/fr/app/my-diabeto/id6737922193?ign-itscg=30200&ign-itsct=apps_box_link&mttnsubad=6737922193&platform=iphone" target="_blank" rel="noopener noreferrer" className="btn-primary nav-btn text-sm py-3 text-center" onClick={toggleMobileMenu}>{t.download}</Link>
+            <Link href="https://play.google.com/store/apps/details?id=com.mydiabeto.app&hl=en-US&ah=6HgTyoTgMJ3aVeK8dWX58UbdyuY%20%E2%86%97" target="_blank" rel="noopener noreferrer" className="btn-primary nav-btn text-sm py-3 text-center" onClick={toggleMobileMenu}>{t.download}</Link>
           </div>
         </div>
       </div>
@@ -421,10 +421,10 @@ export default function Home() {
               {t.heroSubtitle}
             </p>
             <div className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4">
-              <Link href="https://apps.apple.com/fr/app/my-diabeto/id6737922193?ign-itscg=30200&ign-itsct=apps_box_link&mttnsubad=6737922193&platform=iphone" target="_blank" rel="noopener noreferrer" className="btn-primary nav-btn text-sm sm:text-base px-4 sm:px-6">
+              <Link href="https://play.google.com/store/apps/details?id=com.mydiabeto.app&hl=en-US&ah=6HgTyoTgMJ3aVeK8dWX58UbdyuY%20%E2%86%97" target="_blank" rel="noopener noreferrer" className="btn-primary nav-btn text-sm sm:text-base px-4 sm:px-6">
                 {t.downloadApp}
               </Link>
-              <Link href="#how-it-works" className="btn-secondary nav-btn text-sm sm:text-base px-4 sm:px-6">
+              <Link href="#features" className="btn-secondary nav-btn text-sm sm:text-base px-4 sm:px-6">
                 {t.learnHow}
               </Link>
             </div>
@@ -778,7 +778,7 @@ export default function Home() {
               </svg>
               <span className="text-sm sm:text-base">{t.appStore}</span>
             </Link>
-            <Link href="https://apps.apple.com/fr/app/my-diabeto/id6737922193?ign-itscg=30200&ign-itsct=apps_box_link&mttnsubad=6737922193&platform=iphone" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 bg-black text-white btn-primary nav-btn hover:bg-gray-800 px-4 sm:px-6 py-3 w-full sm:w-auto">
+            <Link href="https://play.google.com/store/apps/details?id=com.mydiabeto.app&hl=en-US&ah=6HgTyoTgMJ3aVeK8dWX58UbdyuY%20%E2%86%97" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 bg-black text-white btn-primary nav-btn hover:bg-gray-800 px-4 sm:px-6 py-3 w-full sm:w-auto">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 sm:w-7 sm:h-7 fill-current">
                 <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z" />
               </svg>
@@ -790,7 +790,7 @@ export default function Home() {
             <Link href="https://apps.apple.com/fr/app/my-diabeto/id6737922193?ign-itscg=30200&ign-itsct=apps_box_link&mttnsubad=6737922193&platform=iphone" target="_blank" rel="noopener noreferrer" className="bg-white text-blue-600 btn-primary nav-btn hover:bg-gray-100 w-full sm:w-auto py-3">
               {t.getDiabeto}
             </Link>
-            <Link href="https://apps.apple.com/fr/app/my-diabeto/id6737922193?ign-itscg=30200&ign-itsct=apps_box_link&mttnsubad=6737922193&platform=iphone" target="_blank" rel="noopener noreferrer" className="bg-transparent border-2 border-white text-white btn-primary nav-btn hover:bg-blue-700 w-full sm:w-auto py-3">
+            <Link href="https://play.google.com/store/apps/details?id=com.mydiabeto.app&hl=en-US&ah=6HgTyoTgMJ3aVeK8dWX58UbdyuY%20%E2%86%97" target="_blank" rel="noopener noreferrer" className="bg-transparent border-2 border-white text-white btn-primary nav-btn hover:bg-blue-700 w-full sm:w-auto py-3">
               {t.tryDemo}
             </Link>
           </div>
