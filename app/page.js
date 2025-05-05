@@ -44,7 +44,7 @@ const translations = {
     
     // Who is it for section
     whoForTitle: "Conçu pour les personnes vivant avec le diabète",
-    diabetesPatients: "Patients diabétiques de type 1 et 2",
+    diabetesPatients: "Patients diabétiques de type 2",
     preDiabetic: "Personnes pré-diabétiques",
     parents: "Parents gérant la condition d'un enfant",
     caregivers: "Soignants et utilisateurs soucieux de leur santé",
@@ -152,7 +152,7 @@ const translations = {
     
     // Who is it for section
     whoForTitle: "Built for People Living with Diabetes",
-    diabetesPatients: "Type 1 & Type 2 Diabetes patients",
+    diabetesPatients: "Type 2 diabetic patients",
     preDiabetic: "Pre-diabetic individuals",
     parents: "Parents managing a child's condition",
     caregivers: "Caregivers & health-conscious users",
