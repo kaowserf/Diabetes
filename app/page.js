@@ -51,8 +51,8 @@ const translations = {
     healthConscious: "Toute personne souhaitant améliorer ses habitudes de santé",
     
     // Download section
-    downloadTitle: "Commencez à gérer votre diabète intelligemment",
-    downloadSubtitle: "Rejoignez des milliers d'utilisateurs qui vivent mieux avec Diabeto.",
+    downloadTitle: "Gérez votre taux de sucre efficacement",
+    downloadSubtitle: "Rejoignez les milliers d'utilisateurs qui contrôlent mieux avec My Diabeto.",
     appStoreDescription: "My Diabeto calcule votre taux de sucre dans le sang en temps réel en fonction de votre activité. Lorsque vous prenez votre glycémie, entrez-la simplement dans l'application, qui recalcule ensuite continuellement vos niveaux tout au long de la journée - vous aidant à éviter les injections constantes.",
     disclaimer: "Avertissement: My Diabeto ne fournit pas de conseils médicaux, de diagnostics ou de traitements. Les utilisateurs doivent demander l'avis d'un professionnel de la santé avant de prendre une décision basée sur les données ou les informations de l'application.",
     appStore: "Télécharger sur App Store",
@@ -514,8 +514,8 @@ export default function Home() {
                   className={`absolute inset-0 transition-opacity duration-1000 ${
                     index === currentImageIndex ? "opacity-100 z-10" : "opacity-0 z-0"
                   }`}
-                >
-                  <Image
+        >
+          <Image
                     src={image.src}
                     alt={image.alt}
                     fill
@@ -644,8 +644,8 @@ export default function Home() {
           <div className="mt-10 text-center">
             <Link 
               href="https://apps.apple.com/fr/app/my-diabeto/id6737922193?ign-itscg=30200&ign-itsct=apps_box_link&mttnsubad=6737922193&platform=iphone" 
-              target="_blank"
-              rel="noopener noreferrer"
+          target="_blank"
+          rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 px-6 py-3 rounded-full transform transition-all duration-300 hover:scale-105 hover:shadow-lg"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
