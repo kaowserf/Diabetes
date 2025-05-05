@@ -40,7 +40,7 @@ const translations = {
     shareReportsDesc: "Bien que My Diabeto ne fournisse pas de conseils médicaux ou de diagnostics, il vous donne des données précieuses à partager avec les professionnels de la santé.",
     
     // Screenshot section
-    screenshotsTitle: "Voir Diabeto en action",
+    screenshotsTitle: "My Diabeto",
     
     // Who is it for section
     whoForTitle: "Conçu pour les personnes vivant avec le diabète",
@@ -148,7 +148,7 @@ const translations = {
     shareReportsDesc: "While My Diabeto doesn't provide medical advice or diagnosis, it gives you valuable data to share with healthcare professionals.",
     
     // Screenshot section
-    screenshotsTitle: "See Diabeto in Action",
+    screenshotsTitle: "My Diabeto",
     
     // Who is it for section
     whoForTitle: "Built for People Living with Diabetes",
