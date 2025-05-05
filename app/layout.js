@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "Diabétiques et sportifs gérez votre sucre en temps réel avec My Diabeto",
-  description: "avec la montre et téléphone c'est très parlant et percutant",
+  description: "",
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
@@ -40,13 +40,13 @@ export const metadata = {
   },
   openGraph: {
     title: "Diabétiques et sportifs gérez votre sucre en temps réel avec My Diabeto",
-    description: "avec la montre et téléphone c'est très parlant et percutant",
+    description: "",
     images: [{ url: '/favicon/logo.svg' }],
   },
   twitter: {
     card: 'summary',
     title: "Diabétiques et sportifs gérez votre sucre en temps réel avec My Diabeto",
-    description: "avec la montre et téléphone c'est très parlant et percutant",
+    description: "",
     images: [{ url: '/favicon/logo.svg' }],
   },
 };

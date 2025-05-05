@@ -20,7 +20,7 @@ const translations = {
     
     // Hero section
     heroTitle: "Diabétiques et sportifs gérez votre sucre en temps réel avec My Diabeto",
-    heroSubtitle: "avec la montre et téléphone c'est très parlant et percutant",
+    heroSubtitle: "",
     downloadApp: "🔵 Télécharger l'application",
     learnHow: "⚪ Découvrir comment ça marche",
     
@@ -128,7 +128,7 @@ const translations = {
     
     // Hero section
     heroTitle: "Diabetics and athletes: manage your blood sugar in real-time with My Diabeto",
-    heroSubtitle: "with the watch and phone it's very clear and impactful",
+    heroSubtitle: "",
     downloadApp: "🔵 Download the App",
     learnHow: "⚪ Learn How It Works",
     
@@ -500,9 +500,7 @@ export default function Home() {
             </h2>
             
             <p className="text-center text-gray-600 dark:text-gray-400 mb-6 max-w-3xl mx-auto">
-              {language === 'fr' ? 
-                "Avec la montre et téléphone c'est très parlant et percutant" : 
-                "With the watch and phone it's very clear and impactful"}
+              {/* Removed the conditional text about watch and phone */}
             </p>
           </div>
           
