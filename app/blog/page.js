@@ -16,6 +16,9 @@ function BlogContent() {
   // Language state
   const [language, setLanguage] = useState('fr');
 
+  // Extract unique categories from posts - moved to the top before any useEffect
+  const categories = ['All', ...new Set(allPosts.map(post => post.category))];
+
   // Translations
   const translations = {
     en: {
@@ -75,6 +78,9 @@ function BlogContent() {
       english: "English",
     }
   };
+  
+  // Get translations based on current language
+  const t = translations[language];
 
   // Load the saved language preference on initial load
   useEffect(() => {
@@ -127,12 +133,6 @@ function BlogContent() {
     const newUrl = `/blog${params.toString() ? '?' + params.toString() : ''}`;
     router.push(newUrl, { scroll: false });
   };
-  
-  // Extract unique categories from posts
-  const categories = ['All', ...new Set(allPosts.map(post => post.category))];
-  
-  // Get translations based on current language
-  const t = translations[language];
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
