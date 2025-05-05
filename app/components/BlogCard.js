@@ -3,21 +3,55 @@
 import Image from "next/image";
 import Link from "next/link";
 import { formatDate } from "../utils/formatDate";
+import { useEffect, useState } from "react";
+
+// Helper function to get category color based on category name
+const getCategoryColor = (category) => {
+  const colorMap = {
+    'Education': 'from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700',
+    'Nutrition': 'from-green-500 to-green-600 hover:from-green-600 hover:to-green-700',
+    'Fitness': 'from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700',
+    'Technology': 'from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700',
+    'Lifestyle': 'from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700',
+  };
+  
+  return colorMap[category] || 'from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700';
+};
 
 export default function BlogCard({ post }) {
+  const [isHovered, setIsHovered] = useState(false);
+  const categoryColorClass = getCategoryColor(post.category);
+  
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full">
-      <div className="relative w-full h-48">
+    <div 
+      className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full blog-card relative"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="relative w-full h-48 overflow-hidden">
         <Image
           src={post.coverImage}
           alt={post.title}
           fill
-          className="object-cover"
+          className="object-cover blog-image"
         />
+        
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-transparent opacity-60"></div>
+        
         {post.category && (
-          <span className="absolute top-4 left-4 bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full">
-            {post.category}
-          </span>
+          <Link href={`/blog?category=${post.category}`} className={`blog-category absolute top-4 left-4 bg-gradient-to-r ${categoryColorClass} text-white text-sm font-bold px-4 py-2 rounded-full transform transition-all duration-300 ${isHovered ? 'scale-110 shadow-lg' : ''}`}>
+            <div className="flex items-center">
+              <span className="mr-1.5">
+                {post.category === 'Education' && '📚'}
+                {post.category === 'Nutrition' && '🍎'}
+                {post.category === 'Fitness' && '💪'}
+                {post.category === 'Technology' && '📱'}
+                {post.category === 'Lifestyle' && '✨'}
+              </span>
+              {post.category}
+            </div>
+          </Link>
         )}
       </div>
       

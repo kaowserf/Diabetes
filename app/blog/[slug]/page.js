@@ -65,7 +65,7 @@ export default function BlogPostPage() {
       <header className="sticky top-0 z-50 flex items-center justify-between p-4 sm:p-6 lg:px-8 border-b bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
         <div className="flex items-center">
           <Link href="/" className="text-xl sm:text-2xl font-bold text-primary">
-            Diabeto
+            My Diabeto
           </Link>
         </div>
         
@@ -77,7 +77,7 @@ export default function BlogPostPage() {
             <Link href="/#contact" className="nav-link text-sm font-semibold leading-6">Contact</Link>
           </nav>
           
-          <Link href="/#download" className="btn-primary nav-btn text-sm">
+          <Link href="https://apps.apple.com/fr/app/my-diabeto/id6737922193?ign-itscg=30200&ign-itsct=apps_box_link&mttnsubad=6737922193&platform=iphone" target="_blank" rel="noopener noreferrer" className="btn-primary nav-btn text-sm">
             Download App
           </Link>
         </div>
@@ -201,7 +201,7 @@ export default function BlogPostPage() {
                 <div>
                   <h4 className="font-medium text-lg">{post.author}</h4>
                   <p className="text-gray-600 dark:text-gray-400 text-sm">
-                    Expert contributor to Diabeto Blog
+                    Expert contributor to My Diabeto Blog
                   </p>
                 </div>
               </div>
@@ -210,13 +210,15 @@ export default function BlogPostPage() {
             {/* Download App */}
             <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl shadow-md text-white p-6">
               <h3 className="text-lg font-semibold mb-3">
-                Download Diabeto App
+                Download My Diabeto App
               </h3>
               <p className="mb-4 text-blue-100">
-                Take control of your diabetes with our comprehensive management app.
+                My Diabeto calculates your blood sugar level in real time and without constraints. Enter your initial reading and the app continuously updates your levels based on your activity.
               </p>
               <Link 
-                href="/#download" 
+                href="https://apps.apple.com/fr/app/my-diabeto/id6737922193?ign-itscg=30200&ign-itsct=apps_box_link&mttnsubad=6737922193&platform=iphone" 
+                target="_blank" 
+                rel="noopener noreferrer"
                 className="bg-white text-blue-600 hover:bg-blue-50 font-semibold py-2 px-4 rounded-lg inline-flex items-center transition-all w-full justify-center"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
@@ -265,7 +267,7 @@ export default function BlogPostPage() {
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>
-              <h3 className="text-xl font-bold text-white mb-4">Diabeto</h3>
+              <h3 className="text-xl font-bold text-white mb-4">My Diabeto</h3>
               <p className="mb-4">Your all-in-one diabetes management app.</p>
               <p>support@diabetoapp.com</p>
             </div>
@@ -276,7 +278,7 @@ export default function BlogPostPage() {
                 <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
                 <li><Link href="/blog" className="hover:text-white transition-colors">Blog</Link></li>
                 <li><Link href="/#features" className="hover:text-white transition-colors">Features</Link></li>
-                <li><Link href="/#download" className="hover:text-white transition-colors">Download</Link></li>
+                <li><Link href="https://apps.apple.com/fr/app/my-diabeto/id6737922193?ign-itscg=30200&ign-itsct=apps_box_link&mttnsubad=6737922193&platform=iphone" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Download</Link></li>
               </ul>
             </div>
             
@@ -303,7 +305,7 @@ export default function BlogPostPage() {
           </div>
           
           <div className="pt-8 border-t border-gray-800 text-center">
-            <p>© 2024 Diabeto. All rights reserved.</p>
+            <p>© 2024 My Diabeto. All rights reserved. | Copyright 773AE1M8</p>
           </div>
         </div>
       </footer>

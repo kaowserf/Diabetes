@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { initScrollAnimations, addScrollProgress } from "./scrollAnimations";
 
 // Translation dictionary for all text content
@@ -16,27 +16,28 @@ const translations = {
     testimonials: "Témoignages",
     download: "Télécharger",
     contact: "Contact",
+    blog: "Blog",
     
     // Hero section
-    heroTitle: "Prenez le contrôle de votre diabète avec Diabeto",
-    heroSubtitle: "Surveillez votre glycémie, suivez vos habitudes et vivez plus sainement chaque jour — le tout dans une application puissante et facile à utiliser.",
+    heroTitle: "Diabétiques et sportifs gérez votre sucre en temps réel avec My Diabeto",
+    heroSubtitle: "avec la montre et téléphone c'est très parlant et percutant",
     downloadApp: "🔵 Télécharger l'application",
     learnHow: "⚪ Découvrir comment ça marche",
     
     // Features section
     featuresTitle: "Votre compagnon tout-en-un pour le diabète",
     bloodSugarMonitoring: "Suivi de la glycémie",
-    bloodSugarDesc: "Enregistrez et analysez vos niveaux de glucose sanguin avec des graphiques visuels et des tendances.",
-    smartReminders: "Rappels intelligents",
-    smartRemindersDesc: "Ne manquez plus jamais un médicament, un repas ou un test sanguin grâce à des alertes personnalisables.",
+    bloodSugarDesc: "My Diabeto calcule votre taux de sucre en temps réel et sans contraintes. Entrez votre mesure initiale et l'application recalcule les niveaux en fonction de votre activité.",
+    smartReminders: "Évitez les injections constantes",
+    smartRemindersDesc: "Conçu pour réduire le besoin d'injections constantes, surtout lorsque vous devez le faire plus d'une fois par jour.",
     mealTracking: "Suivi des repas et des glucides",
-    mealTrackingDesc: "Suivez facilement votre consommation alimentaire et vos niveaux de glucides.",
+    mealTrackingDesc: "Prenez en main votre style de vie avec un outil de soutien comportemental simple et efficace conçu pour vous aider à prendre de meilleures décisions dans la gestion du diabète de type 2.",
     activityTracking: "Intégration d'activité et de fitness",
-    activityTrackingDesc: "Synchronisez avec votre traqueur d'activité pour surveiller votre activité physique et votre équilibre énergétique.",
+    activityTrackingDesc: "Intégration transparente avec Apple Health pour suivre votre activité physique et factoriser automatiquement cela dans vos calculs de glycémie.",
     education: "Éducation et conseils",
-    educationDesc: "Accédez à des conseils de santé, des recettes et des guides approuvés par des experts pour mieux gérer votre mode de vie.",
+    educationDesc: "My Diabeto vous aide à suivre vos progrès et encourage des habitudes de vie positives pour une meilleure gestion du diabète.",
     shareReports: "Partager des rapports avec votre médecin",
-    shareReportsDesc: "Générez des rapports de santé détaillés à partager avec votre professionnel de santé en quelques clics.",
+    shareReportsDesc: "Bien que My Diabeto ne fournisse pas de conseils médicaux ou de diagnostics, il vous donne des données précieuses à partager avec les professionnels de la santé.",
     
     // Screenshot section
     screenshotsTitle: "Voir Diabeto en action",
@@ -52,6 +53,8 @@ const translations = {
     // Download section
     downloadTitle: "Commencez à gérer votre diabète intelligemment",
     downloadSubtitle: "Rejoignez des milliers d'utilisateurs qui vivent mieux avec Diabeto.",
+    appStoreDescription: "My Diabeto calcule votre taux de sucre dans le sang en temps réel en fonction de votre activité. Lorsque vous prenez votre glycémie, entrez-la simplement dans l'application, qui recalcule ensuite continuellement vos niveaux tout au long de la journée - vous aidant à éviter les injections constantes.",
+    disclaimer: "Avertissement: My Diabeto ne fournit pas de conseils médicaux, de diagnostics ou de traitements. Les utilisateurs doivent demander l'avis d'un professionnel de la santé avant de prendre une décision basée sur les données ou les informations de l'application.",
     appStore: "Télécharger sur App Store",
     googlePlay: "Obtenir sur Google Play",
     getDiabeto: "🚀 Obtenir Diabeto maintenant",
@@ -121,27 +124,28 @@ const translations = {
     testimonials: "Testimonials",
     download: "Download",
     contact: "Contact",
+    blog: "Blog",
     
     // Hero section
-    heroTitle: "Take Control of Your Diabetes with Diabeto",
-    heroSubtitle: "Monitor your blood sugar, track your habits, and live healthier every day — all in one powerful, easy-to-use app.",
+    heroTitle: "Diabétiques et sportifs gérez votre sucre en temps réel avec My Diabeto",
+    heroSubtitle: "avec la montre et téléphone c'est très parlant et percutant",
     downloadApp: "🔵 Download the App",
     learnHow: "⚪ Learn How It Works",
     
     // Features section
     featuresTitle: "Your All-in-One Diabetes Companion",
     bloodSugarMonitoring: "Blood Sugar Monitoring",
-    bloodSugarDesc: "Log and analyze your blood glucose levels with visual charts and trends.",
-    smartReminders: "Smart Reminders",
-    smartRemindersDesc: "Never miss a medication, meal, or blood test again with customizable alerts.",
+    bloodSugarDesc: "My Diabeto calculates your blood sugar level in real time and without constraints. Enter your initial reading and the app recalculates levels based on your activity.",
+    smartReminders: "Avoid Constant Injections",
+    smartRemindersDesc: "Designed to reduce the need for constant injections, especially when you need to do it more than once a day.",
     mealTracking: "Meal & Carb Tracking",
-    mealTrackingDesc: "Keep track of your food intake and carbohydrate levels with ease.",
+    mealTrackingDesc: "Take charge of your lifestyle with a simple and effective behavioral support tool designed to help you make better decisions when managing type 2 diabetes.",
     activityTracking: "Activity & Fitness Integration",
-    activityTrackingDesc: "Sync with your fitness tracker to monitor your physical activity and energy balance.",
+    activityTrackingDesc: "Seamless integration with Apple Health tracks your physical activity and automatically factors this into your blood sugar calculations.",
     education: "Education & Tips",
-    educationDesc: "Access expert-approved health tips, recipes, and guides to better manage your lifestyle.",
+    educationDesc: "My Diabeto helps you track your progress and encourages positive lifestyle habits for better diabetes management.",
     shareReports: "Share Reports with Your Doctor",
-    shareReportsDesc: "Generate detailed health reports to share with your healthcare provider in just a few taps.",
+    shareReportsDesc: "While My Diabeto doesn't provide medical advice or diagnosis, it gives you valuable data to share with healthcare professionals.",
     
     // Screenshot section
     screenshotsTitle: "See Diabeto in Action",
@@ -157,6 +161,8 @@ const translations = {
     // Download section
     downloadTitle: "Start Managing Your Diabetes the Smart Way",
     downloadSubtitle: "Join thousands of users who are living better with Diabeto.",
+    appStoreDescription: "My Diabeto calculates your blood sugar level in real time based on your activity. When you take your blood glucose reading, simply enter it into the app, which then continuously recalculates your levels throughout the day - helping you avoid constant injections.",
+    disclaimer: "Disclaimer: My Diabeto does not provide medical advice, diagnosis, or treatment. Users should seek the advice of a healthcare professional before making any decisions based on data or information in the app.",
     appStore: "Download on App Store",
     googlePlay: "Get it on Google Play",
     getDiabeto: "🚀 Get Diabeto Now",
@@ -224,7 +230,24 @@ export default function Home() {
   const [language, setLanguage] = useState('fr');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formStatus, setFormStatus] = useState('');
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const t = translations[language];
+  
+  // Array of carousel images
+  const carouselImages = [
+    { src: "/diaimg/watch.jpeg", alt: "Diabeto Watch Interface" },
+    { src: "/diaimg/mobile.jpeg", alt: "Diabeto Mobile App" },
+    { src: "/diaweblogo.jpg", alt: "Diabeto Logo" }
+  ];
+  
+  // Auto-rotate carousel images
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % carouselImages.length);
+    }, 3000); // Change image every 3 seconds
+    
+    return () => clearInterval(interval);
+  }, [carouselImages.length]);
   
   // Initialize scroll animations when component mounts
   useEffect(() => {
@@ -232,8 +255,32 @@ export default function Home() {
     addScrollProgress();
   }, []);
   
+  // Effect to handle language change
+  useEffect(() => {
+    // Log language change to console for debugging
+    console.log('Language changed to:', language);
+    
+    // You could also store the language preference in localStorage
+    localStorage.setItem('preferredLanguage', language);
+    
+    // Force a re-render to ensure all translated content updates
+    document.title = language === 'fr' 
+      ? 'Diabétiques et sportifs gérez votre sucre en temps réel avec My Diabeto'
+      : 'Manage your blood sugar in real-time with My Diabeto';
+  }, [language]);
+  
+  // Load saved language preference on initial load
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('preferredLanguage');
+    if (savedLanguage && (savedLanguage === 'fr' || savedLanguage === 'en')) {
+      setLanguage(savedLanguage);
+    }
+  }, []);
+  
   const toggleLanguage = () => {
-    setLanguage(language === 'fr' ? 'en' : 'fr');
+    const newLanguage = language === 'fr' ? 'en' : 'fr';
+    console.log('Toggling language from', language, 'to', newLanguage);
+    setLanguage(newLanguage);
   };
 
   const toggleMobileMenu = () => {
@@ -255,7 +302,7 @@ export default function Home() {
       {/* Navigation */}
       <nav className="sticky top-0 z-50 flex items-center justify-between p-4 sm:p-6 lg:px-8 border-b bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
         <div className="flex items-center">
-          <span className="text-xl sm:text-2xl font-bold text-primary">Diabeto</span>
+          <span className="text-xl sm:text-2xl font-bold text-primary">My Diabeto</span>
         </div>
         
         {/* Desktop Nav Links */}
@@ -263,6 +310,7 @@ export default function Home() {
           <Link href="#" className="nav-link text-sm font-semibold leading-6">{t.home}</Link>
           <Link href="#features" className="nav-link text-sm font-semibold leading-6">{t.features}</Link>
           <Link href="#screenshots" className="nav-link text-sm font-semibold leading-6">{t.screenshots}</Link>
+          <Link href="/blog" className="nav-link text-sm font-semibold leading-6">{t.blog}</Link>
           <Link href="#faq" className="nav-link text-sm font-semibold leading-6">{t.faq}</Link>
           <Link href="#testimonials" className="nav-link text-sm font-semibold leading-6">{t.testimonials}</Link>
         </div>
@@ -270,15 +318,16 @@ export default function Home() {
         {/* Desktop Buttons */}
         <div className="hidden lg:flex lg:items-center lg:gap-4">
           <Link href="#contact" className="btn-secondary nav-btn text-sm">{t.contact}</Link>
-          <Link href="#download" className="btn-primary nav-btn text-sm">{t.download}</Link>
+          <Link href="https://apps.apple.com/fr/app/my-diabeto/id6737922193?ign-itscg=30200&ign-itsct=apps_box_link&mttnsubad=6737922193&platform=iphone" target="_blank" rel="noopener noreferrer" className="btn-primary nav-btn text-sm">{t.download}</Link>
           <button 
             onClick={toggleLanguage}
-            className="lang-switcher flex items-center gap-2 bg-white dark:bg-gray-800 border-2 border-primary rounded-full px-3 py-2 shadow-md hover:shadow-lg transition-all"
+            data-current-lang={language}
+            className={`lang-switcher flex items-center gap-2 bg-white dark:bg-gray-800 border-2 ${language === 'fr' ? 'border-blue-500' : 'border-red-500'} rounded-full px-3 py-2 shadow-md hover:shadow-lg transition-all transform active:scale-95`}
           >
             <span className="text-sm font-medium">
               {language === 'fr' ? translations.fr.english : translations.en.french}
             </span>
-            <div className="lang-icon w-5 h-5 rounded-full overflow-hidden border border-gray-300">
+            <div className={`lang-icon w-5 h-5 rounded-full overflow-hidden border ${language === 'fr' ? 'border-blue-500' : 'border-red-500'}`}>
               {language === 'fr' 
                 ? <div className="bg-blue-500 w-full h-1/3"></div> 
                 : <div className="flex flex-col h-full">
@@ -295,12 +344,13 @@ export default function Home() {
         <div className="flex items-center gap-2 lg:hidden">
           <button 
             onClick={toggleLanguage}
-            className="lang-switcher flex items-center gap-1 bg-white dark:bg-gray-800 border-2 border-primary rounded-full px-2 py-1 shadow-md"
+            data-current-lang={language}
+            className={`lang-switcher flex items-center gap-1 bg-white dark:bg-gray-800 border-2 ${language === 'fr' ? 'border-blue-500' : 'border-red-500'} rounded-full px-2 py-1 shadow-md transform active:scale-95`}
           >
             <span className="text-xs font-medium sr-only sm:not-sr-only">
               {language === 'fr' ? translations.fr.english : translations.en.french}
             </span>
-            <div className="lang-icon w-4 h-4 rounded-full overflow-hidden border border-gray-300">
+            <div className={`lang-icon w-4 h-4 rounded-full overflow-hidden border ${language === 'fr' ? 'border-blue-500' : 'border-red-500'}`}>
               {language === 'fr' 
                 ? <div className="bg-blue-500 w-full h-1/3"></div> 
                 : <div className="flex flex-col h-full">
@@ -329,12 +379,13 @@ export default function Home() {
           <Link href="#" className="block py-2 text-base font-medium text-center hover:bg-gray-100 dark:hover:bg-gray-800 rounded">{t.home}</Link>
           <Link href="#features" className="block py-2 text-base font-medium text-center hover:bg-gray-100 dark:hover:bg-gray-800 rounded" onClick={toggleMobileMenu}>{t.features}</Link>
           <Link href="#screenshots" className="block py-2 text-base font-medium text-center hover:bg-gray-100 dark:hover:bg-gray-800 rounded" onClick={toggleMobileMenu}>{t.screenshots}</Link>
+          <Link href="/blog" className="block py-2 text-base font-medium text-center hover:bg-gray-100 dark:hover:bg-gray-800 rounded" onClick={toggleMobileMenu}>{t.blog}</Link>
           <Link href="#faq" className="block py-2 text-base font-medium text-center hover:bg-gray-100 dark:hover:bg-gray-800 rounded" onClick={toggleMobileMenu}>{t.faq}</Link>
           <Link href="#testimonials" className="block py-2 text-base font-medium text-center hover:bg-gray-100 dark:hover:bg-gray-800 rounded" onClick={toggleMobileMenu}>{t.testimonials}</Link>
           
           <div className="pt-4 grid grid-cols-2 gap-3">
             <Link href="#contact" className="btn-secondary nav-btn text-sm py-3 text-center" onClick={toggleMobileMenu}>{t.contact}</Link>
-            <Link href="#download" className="btn-primary nav-btn text-sm py-3 text-center" onClick={toggleMobileMenu}>{t.download}</Link>
+            <Link href="https://apps.apple.com/fr/app/my-diabeto/id6737922193?ign-itscg=30200&ign-itsct=apps_box_link&mttnsubad=6737922193&platform=iphone" target="_blank" rel="noopener noreferrer" className="btn-primary nav-btn text-sm py-3 text-center" onClick={toggleMobileMenu}>{t.download}</Link>
           </div>
         </div>
       </div>
@@ -350,7 +401,7 @@ export default function Home() {
               {t.heroSubtitle}
             </p>
             <div className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4">
-              <Link href="#download" className="btn-primary nav-btn text-sm sm:text-base px-4 sm:px-6">
+              <Link href="https://apps.apple.com/fr/app/my-diabeto/id6737922193?ign-itscg=30200&ign-itsct=apps_box_link&mttnsubad=6737922193&platform=iphone" target="_blank" rel="noopener noreferrer" className="btn-primary nav-btn text-sm sm:text-base px-4 sm:px-6">
                 {t.downloadApp}
               </Link>
               <Link href="#how-it-works" className="btn-secondary nav-btn text-sm sm:text-base px-4 sm:px-6">
@@ -383,101 +434,147 @@ export default function Home() {
             <div className="flex flex-col items-start space-y-4 hover-card p-6 rounded-lg scroll-fade-in">
               <div className="text-4xl feature-icon">📈</div>
               <h3 className="text-xl font-semibold">{t.bloodSugarMonitoring}</h3>
-              <p className="text-gray-600 dark:text-gray-400">{t.bloodSugarDesc}</p>
+              <p className="text-gray-600 dark:text-gray-400">My Diabeto calculates your blood sugar level in real time and without constraints. Enter your initial reading and the app recalculates levels based on your activity.</p>
             </div>
             
             <div className="flex flex-col items-start space-y-4 hover-card p-6 rounded-lg scroll-fade-in">
               <div className="text-4xl feature-icon">🕒</div>
               <h3 className="text-xl font-semibold">{t.smartReminders}</h3>
-              <p className="text-gray-600 dark:text-gray-400">{t.smartRemindersDesc}</p>
+              <p className="text-gray-600 dark:text-gray-400">Designed to reduce the need for constant injections, especially when you need to do it more than once a day.</p>
             </div>
             
             <div className="flex flex-col items-start space-y-4 hover-card p-6 rounded-lg scroll-fade-in">
               <div className="text-4xl feature-icon">🍽️</div>
               <h3 className="text-xl font-semibold">{t.mealTracking}</h3>
-              <p className="text-gray-600 dark:text-gray-400">{t.mealTrackingDesc}</p>
+              <p className="text-gray-600 dark:text-gray-400">Take charge of your lifestyle with a simple and effective behavioral support tool designed to help you make better decisions in managing type 2 diabetes.</p>
             </div>
             
             <div className="flex flex-col items-start space-y-4 hover-card p-6 rounded-lg scroll-fade-in">
               <div className="text-4xl feature-icon">🏃</div>
               <h3 className="text-xl font-semibold">{t.activityTracking}</h3>
-              <p className="text-gray-600 dark:text-gray-400">{t.activityTrackingDesc}</p>
+              <p className="text-gray-600 dark:text-gray-400">Seamless integration with Apple Health tracks your physical activity and automatically factors this into your blood sugar calculations.</p>
             </div>
             
             <div className="flex flex-col items-start space-y-4 hover-card p-6 rounded-lg scroll-fade-in">
               <div className="text-4xl feature-icon">📚</div>
               <h3 className="text-xl font-semibold">{t.education}</h3>
-              <p className="text-gray-600 dark:text-gray-400">{t.educationDesc}</p>
+              <p className="text-gray-600 dark:text-gray-400">My Diabeto helps you track your progress and encourages positive lifestyle habits for better diabetes management.</p>
             </div>
             
             <div className="flex flex-col items-start space-y-4 hover-card p-6 rounded-lg scroll-fade-in">
               <div className="text-4xl feature-icon">👨‍⚕️</div>
               <h3 className="text-xl font-semibold">{t.shareReports}</h3>
-              <p className="text-gray-600 dark:text-gray-400">{t.shareReportsDesc}</p>
+              <p className="text-gray-600 dark:text-gray-400">While My Diabeto doesn't provide medical advice or diagnosis, it gives you valuable data to share with healthcare professionals.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Screenshot Section with parallax effect */}
-      <section id="screenshots" className="section bg-gray-50 dark:bg-gray-800">
+      {/* Screenshot Section with actual app screenshots */}
+      <section id="screenshots" className="section bg-gray-50 dark:bg-gray-800 py-12">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-16 scroll-fade-in">{t.screenshotsTitle}</h2>
+          <h2 className="text-3xl font-bold text-center mb-8 scroll-fade-in">{t.screenshotsTitle}</h2>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="group relative overflow-hidden rounded-lg shadow-md transition-all duration-500 hover-card scroll-scale-in">
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-600/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-4">
-                <p className="text-white font-medium text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Blood Sugar Tracking</p>
+          <p className="text-center text-gray-600 dark:text-gray-400 mb-6 max-w-3xl mx-auto">
+            {language === 'fr' ? 
+              "Avec la montre et téléphone c'est très parlant et percutant" : 
+              "With the watch and phone it's very clear and impactful"}
+          </p>
+          
+          {/* Image Carousel */}
+          <div className="mb-16 max-w-lg mx-auto">
+            <div className="relative h-[550px] w-full overflow-hidden rounded-xl shadow-2xl">
+              {carouselImages.map((image, index) => (
+                <div
+                  key={index}
+                  className={`absolute inset-0 transition-opacity duration-1000 ${
+                    index === currentImageIndex ? "opacity-100 z-10" : "opacity-0 z-0"
+                  }`}
+                >
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    className="object-cover object-center"
+                    priority={index === 0}
+                  />
+                </div>
+              ))}
+              
+              {/* Carousel Indicators */}
+              <div className="absolute bottom-4 left-0 right-0 z-20 flex justify-center space-x-2">
+                {carouselImages.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`w-3 h-3 rounded-full transition-all ${
+                      index === currentImageIndex ? "bg-white scale-125" : "bg-white/50"
+                    }`}
+                    onClick={() => setCurrentImageIndex(index)}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
               </div>
+            </div>
+          </div>
+          
+          <div className="flex flex-wrap justify-center gap-4">
+            <div className="overflow-hidden">
               <Image 
-                src="/s1.png" 
+                src="/diaimg/460x0w.png" 
+                alt="Diabeto Home Dashboard" 
+                width={325} 
+                height={650}
+                className="rounded-lg shadow-lg"
+              />
+            </div>
+            
+            <div className="overflow-hidden">
+              <Image 
+                src="/diaimg/600x0w.png" 
                 alt="Blood Sugar Tracking" 
-                width={250} 
-                height={400}
-                className="w-full h-auto transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-1 parallax-element"
-                data-speed="0.1"
+                width={325} 
+                height={650}
+                className="rounded-lg shadow-lg"
               />
             </div>
             
-            <div className="group relative overflow-hidden rounded-lg shadow-md transition-all duration-500 hover-card scroll-scale-in">
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-600/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-4">
-                <p className="text-white font-medium text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Meal Tracking</p>
-              </div>
+            <div className="overflow-hidden">
               <Image 
-                src="/s2.png" 
+                src="/diaimg/600x0w (1).png" 
                 alt="Meal Tracking" 
-                width={250} 
-                height={400}
-                className="w-full h-auto transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-1 parallax-element"
-                data-speed="0.15"
+                width={325} 
+                height={650}
+                className="rounded-lg shadow-lg"
               />
             </div>
             
-            <div className="group relative overflow-hidden rounded-lg shadow-md transition-all duration-500 hover-card scroll-scale-in">
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-600/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-4">
-                <p className="text-white font-medium text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Activity Monitoring</p>
-              </div>
+            <div className="overflow-hidden">
               <Image 
-                src="/s3.png" 
+                src="/diaimg/600x0w (2).png" 
                 alt="Activity Monitoring" 
-                width={250} 
-                height={400}
-                className="w-full h-auto transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-1 parallax-element"
-                data-speed="0.2"
+                width={325} 
+                height={650}
+                className="rounded-lg shadow-lg"
               />
             </div>
             
-            <div className="group relative overflow-hidden rounded-lg shadow-md transition-all duration-500 hover-card scroll-scale-in">
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-600/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-4">
-                <p className="text-white font-medium text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Health Reports</p>
-              </div>
-          <Image
-                src="/s4.png" 
-                alt="Health Reports" 
-                width={250} 
-                height={400}
-                className="w-full h-auto transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-1 parallax-element"
-                data-speed="0.25"
+            <div className="overflow-hidden">
+              <Image 
+                src="/diaimg/600x0w (3).png" 
+                alt="Stats and Reports" 
+                width={325} 
+                height={650}
+                className="rounded-lg shadow-lg"
+              />
+            </div>
+            
+            <div className="overflow-hidden">
+              <Image 
+                src="/diaimg/600x0w (4).png" 
+                alt="Advanced Analytics" 
+                width={325} 
+                height={650}
+                className="rounded-lg shadow-lg"
               />
             </div>
           </div>
@@ -595,16 +692,17 @@ export default function Home() {
       <section id="download" className="section py-12 sm:py-16 px-4 sm:px-6 bg-blue-600 text-white">
         <div className="container mx-auto text-center">
           <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">{t.downloadTitle}</h2>
-          <p className="text-base sm:text-xl mb-8 sm:mb-12 max-w-3xl mx-auto">{t.downloadSubtitle}</p>
+          <p className="text-base sm:text-xl mb-4 max-w-3xl mx-auto">{t.downloadSubtitle}</p>
+          <p className="text-base sm:text-lg mb-8 sm:mb-12 max-w-3xl mx-auto">{t.appStoreDescription}</p>
           
           <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 sm:gap-6 max-w-3xl mx-auto">
-            <Link href="#" className="flex items-center justify-center gap-3 bg-black text-white btn-primary nav-btn hover:bg-gray-800 px-4 sm:px-6 py-3 w-full sm:w-auto">
+            <Link href="https://apps.apple.com/fr/app/my-diabeto/id6737922193?ign-itscg=30200&ign-itsct=apps_box_link&mttnsubad=6737922193&platform=iphone" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 bg-black text-white btn-primary nav-btn hover:bg-gray-800 px-4 sm:px-6 py-3 w-full sm:w-auto">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" className="w-5 h-5 sm:w-7 sm:h-7 fill-current">
                 <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z" />
               </svg>
               <span className="text-sm sm:text-base">{t.appStore}</span>
             </Link>
-            <Link href="#" className="flex items-center justify-center gap-3 bg-black text-white btn-primary nav-btn hover:bg-gray-800 px-4 sm:px-6 py-3 w-full sm:w-auto">
+            <Link href="https://apps.apple.com/fr/app/my-diabeto/id6737922193?ign-itscg=30200&ign-itsct=apps_box_link&mttnsubad=6737922193&platform=iphone" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 bg-black text-white btn-primary nav-btn hover:bg-gray-800 px-4 sm:px-6 py-3 w-full sm:w-auto">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-5 h-5 sm:w-7 sm:h-7 fill-current">
                 <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z" />
               </svg>
@@ -613,13 +711,15 @@ export default function Home() {
           </div>
           
           <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 mt-6 sm:mt-8">
-            <Link href="#" className="bg-white text-blue-600 btn-primary nav-btn hover:bg-gray-100 w-full sm:w-auto py-3">
+            <Link href="https://apps.apple.com/fr/app/my-diabeto/id6737922193?ign-itscg=30200&ign-itsct=apps_box_link&mttnsubad=6737922193&platform=iphone" target="_blank" rel="noopener noreferrer" className="bg-white text-blue-600 btn-primary nav-btn hover:bg-gray-100 w-full sm:w-auto py-3">
               {t.getDiabeto}
             </Link>
-            <Link href="#" className="bg-transparent border-2 border-white text-white btn-primary nav-btn hover:bg-blue-700 w-full sm:w-auto py-3">
+            <Link href="https://apps.apple.com/fr/app/my-diabeto/id6737922193?ign-itscg=30200&ign-itsct=apps_box_link&mttnsubad=6737922193&platform=iphone" target="_blank" rel="noopener noreferrer" className="bg-transparent border-2 border-white text-white btn-primary nav-btn hover:bg-blue-700 w-full sm:w-auto py-3">
               {t.tryDemo}
             </Link>
           </div>
+          
+          <p className="text-sm mt-4 max-w-3xl mx-auto opacity-80">{t.disclaimer}</p>
         </div>
       </section>
 
@@ -757,7 +857,7 @@ export default function Home() {
             {/* Contact Info */}
             <div className="md:col-span-2 space-y-6 animate-reveal delay-1">
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-                <h3 className="font-semibold text-xl mb-4 text-primary">Diabeto</h3>
+                <h3 className="font-semibold text-xl mb-4 text-primary">My Diabeto</h3>
                 <ul className="space-y-4">
                   <li className="flex items-start">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-primary mr-3 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -806,7 +906,7 @@ export default function Home() {
           {/* Top section with columns */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-10 sm:mb-12">
             <div className="animate-reveal">
-              <h3 className="text-xl font-bold mb-4">Diabeto</h3>
+              <h3 className="text-xl font-bold mb-4">My Diabeto</h3>
               <p className="text-gray-400 mb-4">{t.footerAbout}</p>
               <p className="text-gray-400 flex items-center gap-2">
                 <span>📧</span> {t.footerContact}
@@ -819,6 +919,7 @@ export default function Home() {
                 <li><Link href="#" className="text-gray-400 footer-link">{t.home}</Link></li>
                 <li><Link href="#features" className="text-gray-400 footer-link">{t.features}</Link></li>
                 <li><Link href="#screenshots" className="text-gray-400 footer-link">{t.screenshots}</Link></li>
+                <li><Link href="/blog" className="text-gray-400 footer-link">{t.blog}</Link></li>
                 <li><Link href="#download" className="text-gray-400 footer-link">{t.download}</Link></li>
               </ul>
             </div>
@@ -867,7 +968,7 @@ export default function Home() {
           {/* Copyright and credits */}
           <div className="md:flex md:justify-between md:items-center">
             <p className="text-gray-400 text-center md:text-left mb-4 md:mb-0 animate-reveal">
-              {t.copyright}
+              {t.copyright.replace("Diabeto", "My Diabeto")} | Copyright 773AE1M8
             </p>
             <p className="text-gray-400 text-center md:text-right animate-reveal delay-1">
               {t.developedBy} <Link href="https://wa.link/uske6b" target="_blank" className="text-blue-400 hover:text-blue-300 transition-colors footer-link">kaoserpro</Link>

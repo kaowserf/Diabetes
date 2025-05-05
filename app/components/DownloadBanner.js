@@ -9,14 +9,16 @@ export default function DownloadBanner() {
       <div className="p-6 sm:p-8 flex flex-col md:flex-row items-center gap-6">
         <div className="md:w-2/3 text-white">
           <h3 className="text-xl sm:text-2xl font-bold mb-3">
-            Take Control of Your Diabetes with Diabeto App
+            Take Control of Your Diabetes with My Diabeto App
           </h3>
           <p className="mb-5 text-blue-50">
-            Monitor your blood sugar, track your habits, and live healthier every day — all in one powerful, easy-to-use app.
+            My Diabeto calculates your blood sugar level in real time based on your activity. Enter your initial reading and the app continuously updates your levels - helping you avoid constant injections.
           </p>
           <div className="flex flex-wrap gap-4">
             <Link 
-              href="#download" 
+              href="https://apps.apple.com/fr/app/my-diabeto/id6737922193?ign-itscg=30200&ign-itsct=apps_box_link&mttnsubad=6737922193&platform=iphone" 
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-white text-blue-600 hover:bg-blue-50 font-semibold py-3 px-6 rounded-full inline-flex items-center transition-all"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
@@ -36,7 +38,7 @@ export default function DownloadBanner() {
           <div className="relative w-[120px] h-[200px] md:w-[150px] md:h-[250px] animate-float">
             <Image
               src="/diaweblogo.jpg"
-              alt="Diabeto App"
+              alt="My Diabeto App"
               fill
               className="object-contain"
             />

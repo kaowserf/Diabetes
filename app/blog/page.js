@@ -1,17 +1,115 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
 import BlogCard from '../components/BlogCard';
 import { getAllPosts } from '../data/blogPosts';
 
 export default function BlogPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const allPosts = getAllPosts();
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  // Language state
+  const [language, setLanguage] = useState('fr');
+
+  // Translations
+  const translations = {
+    en: {
+      home: "Home",
+      features: "Features",
+      blog: "Blog",
+      contact: "Contact",
+      downloadApp: "Download App",
+      blogTitle: "My Diabeto Blog",
+      blogSubtitle: "avec la montre et téléphone c'est très parlant et percutant",
+      searchPlaceholder: "Search articles...",
+      filterByCategory: "Filter by Category",
+      allArticles: "All Articles",
+      articles: "articles",
+      article: "article",
+      showing: "Showing",
+      noArticlesFound: "No articles found",
+      tryAdjusting: "Try adjusting your search or category selection",
+      resetFilters: "Reset filters",
+      subscribeNewsletter: "Subscribe to Our Newsletter",
+      newsletterDescription: "Get the latest articles, tips, and resources delivered straight to your inbox.",
+      emailPlaceholder: "Your email address",
+      subscribe: "Subscribe",
+      quickLinks: "Quick Links",
+      categories: "Categories",
+      followUs: "Follow Us",
+      copyright: "© 2024 My Diabeto. All rights reserved.",
+      french: "Français",
+      english: "English",
+    },
+    fr: {
+      home: "Accueil",
+      features: "Fonctionnalités",
+      blog: "Blog",
+      contact: "Contact",
+      downloadApp: "Télécharger l'App",
+      blogTitle: "Blog My Diabeto",
+      blogSubtitle: "avec la montre et téléphone c'est très parlant et percutant",
+      searchPlaceholder: "Rechercher des articles...",
+      filterByCategory: "Filtrer par Catégorie",
+      allArticles: "Tous les Articles",
+      articles: "articles",
+      article: "article",
+      showing: "Affichage de",
+      noArticlesFound: "Aucun article trouvé",
+      tryAdjusting: "Essayez d'ajuster votre recherche ou votre sélection de catégorie",
+      resetFilters: "Réinitialiser les filtres",
+      subscribeNewsletter: "Abonnez-vous à Notre Newsletter",
+      newsletterDescription: "Recevez les derniers articles, conseils et ressources directement dans votre boîte mail.",
+      emailPlaceholder: "Votre adresse email",
+      subscribe: "S'abonner",
+      quickLinks: "Liens Rapides",
+      categories: "Catégories",
+      followUs: "Suivez-nous",
+      copyright: "© 2024 My Diabeto. Tous droits réservés.",
+      french: "Français",
+      english: "English",
+    }
+  };
+
+  // Get translations based on current language
+  const t = translations[language];
 
   // Extract unique categories from posts
   const categories = ['All', ...new Set(allPosts.map(post => post.category))];
+  
+  // Load the saved language preference on initial load
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('preferredLanguage');
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+      console.log('Loaded saved language preference:', savedLanguage);
+    }
+  }, []);
+
+  // Update document title and save language preference
+  useEffect(() => {
+    console.log('Language changed to:', language);
+    localStorage.setItem('preferredLanguage', language);
+    document.title = language === 'fr' ? 'Blog My Diabeto' : 'My Diabeto Blog';
+  }, [language]);
+
+  // Function to toggle language
+  const toggleLanguage = () => {
+    console.log('Toggling language from', language);
+    setLanguage(prevLang => prevLang === 'fr' ? 'en' : 'fr');
+  };
+  
+  // Effect to handle URL query parameters
+  useEffect(() => {
+    const categoryParam = searchParams.get('category');
+    if (categoryParam && categories.includes(categoryParam)) {
+      setActiveCategory(categoryParam);
+    }
+  }, [searchParams, categories]);
   
   // Filter posts based on category and search query
   const filteredPosts = allPosts.filter(post => {
@@ -21,49 +119,84 @@ export default function BlogPage() {
     return matchesCategory && matchesSearch;
   });
   
+  // Handle category change with URL update
+  const handleCategoryChange = (category) => {
+    setActiveCategory(category);
+    
+    // Update URL without page reload
+    const params = new URLSearchParams();
+    if (category !== 'All') {
+      params.set('category', category);
+    }
+    
+    const newUrl = `/blog${params.toString() ? '?' + params.toString() : ''}`;
+    router.push(newUrl, { scroll: false });
+  };
+  
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header/Navigation */}
       <header className="sticky top-0 z-50 flex items-center justify-between p-4 sm:p-6 lg:px-8 border-b bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
         <div className="flex items-center">
           <Link href="/" className="text-xl sm:text-2xl font-bold text-primary">
-            Diabeto
+            My Diabeto
           </Link>
         </div>
         
         <div className="flex items-center gap-4">
           <nav className="hidden md:flex gap-6">
-            <Link href="/" className="nav-link text-sm font-semibold leading-6">Home</Link>
-            <Link href="/#features" className="nav-link text-sm font-semibold leading-6">Features</Link>
-            <Link href="/blog" className="nav-link text-sm font-semibold leading-6 text-primary">Blog</Link>
-            <Link href="/#contact" className="nav-link text-sm font-semibold leading-6">Contact</Link>
+            <Link href="/" className="nav-link text-sm font-semibold leading-6">{t.home}</Link>
+            <Link href="/#features" className="nav-link text-sm font-semibold leading-6">{t.features}</Link>
+            <Link href="/blog" className="nav-link text-sm font-semibold leading-6 text-primary">{t.blog}</Link>
+            <Link href="/#contact" className="nav-link text-sm font-semibold leading-6">{t.contact}</Link>
           </nav>
           
-          <Link href="/#download" className="btn-primary nav-btn text-sm">
-            Download App
+          {/* Language Switcher */}
+          <button 
+            onClick={toggleLanguage}
+            data-current-lang={language}
+            className={`lang-switcher flex items-center gap-2 bg-white dark:bg-gray-800 border-2 ${language === 'fr' ? 'border-blue-500' : 'border-red-500'} rounded-full px-3 py-2 shadow-md hover:shadow-lg transition-all transform active:scale-95 mr-2`}
+          >
+            <span className="text-sm font-medium">
+              {language === 'fr' ? translations.fr.english : translations.en.french}
+            </span>
+            <div className={`lang-icon w-5 h-5 rounded-full overflow-hidden border ${language === 'fr' ? 'border-blue-500' : 'border-red-500'}`}>
+              {language === 'fr' 
+                ? <div className="bg-blue-500 w-full h-1/3"></div> 
+                : <div className="flex flex-col h-full">
+                    <div className="bg-blue-500 w-full h-1/3"></div>
+                    <div className="bg-white w-full h-1/3"></div>
+                    <div className="bg-red-500 w-full h-1/3"></div>
+                  </div>
+              }
+            </div>
+          </button>
+          
+          <Link href="https://apps.apple.com/fr/app/my-diabeto/id6737922193?ign-itscg=30200&ign-itsct=apps_box_link&mttnsubad=6737922193&platform=iphone" target="_blank" rel="noopener noreferrer" className="btn-primary nav-btn text-sm">
+            {t.downloadApp}
           </Link>
         </div>
       </header>
       
       {/* Hero Section */}
-      <div className="bg-gradient-to-b from-blue-600 to-blue-700 text-white py-16 px-4">
+      <div className="bg-gradient-to-b from-blue-600 to-blue-700 text-white py-16 px-4 hero-section">
         <div className="container mx-auto max-w-4xl text-center">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Diabeto Blog</h1>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">{t.blogTitle}</h1>
           <p className="text-lg md:text-xl text-blue-100 mb-8">
-            Insights, tips and resources to help you manage diabetes effectively
+            {t.blogSubtitle}
           </p>
           
-          {/* Search Bar */}
-          <div className="relative max-w-xl mx-auto">
+          {/* Search Bar with Enhanced Visibility */}
+          <div className="relative max-w-xl mx-auto transform hover:scale-105 transition-transform duration-300">
             <input
               type="text"
-              placeholder="Search articles..."
+              placeholder={t.searchPlaceholder}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-3 rounded-full text-gray-800 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+              className="w-full px-5 py-4 rounded-full text-gray-800 focus:ring-4 focus:ring-blue-300 focus:outline-none shadow-lg border-2 border-blue-200 newsletter-input"
             />
-            <div className="absolute top-0 right-0 p-3">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="absolute top-0 right-0 p-4">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </div>
@@ -71,27 +204,39 @@ export default function BlogPage() {
         </div>
       </div>
       
-      {/* Category Tabs */}
-      <div className="container mx-auto px-4 py-6 overflow-x-auto">
-        <div className="flex gap-2 min-w-max justify-start md:justify-center pb-2">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                activeCategory === category
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
+      {/* Category Tabs - Enhanced */}
+      <div className="bg-white dark:bg-gray-800 shadow-md py-6 px-4 sticky top-[72px] z-40 border-b border-gray-200 dark:border-gray-700">
+        <div className="container mx-auto">
+          <h2 className="text-xl font-bold mb-4 text-center">{t.filterByCategory}</h2>
+          <div className="flex gap-2 overflow-x-auto flex-nowrap justify-start md:justify-center pb-2 category-tabs-container">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => handleCategoryChange(category)}
+                className={`category-tab px-5 py-3 rounded-full text-sm font-medium transition-all duration-300 shadow-sm flex-shrink-0 ${
+                  activeCategory === category
+                    ? 'bg-blue-600 text-white transform scale-110 shadow-md active'
+                    : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
       
       {/* Blog Posts Grid */}
       <div className="container mx-auto px-4 py-8">
+        <div className="mb-6 flex items-center justify-between">
+          <h2 className="text-2xl font-bold">
+            {activeCategory === 'All' ? t.allArticles : `${activeCategory} ${t.articles}`}
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400">
+            {t.showing} {filteredPosts.length} {filteredPosts.length === 1 ? t.article : t.articles}
+          </p>
+        </div>
+        
         {filteredPosts.length > 0 ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredPosts.map((post) => (
@@ -99,11 +244,23 @@ export default function BlogPage() {
             ))}
           </div>
         ) : (
-          <div className="text-center py-16">
-            <h3 className="text-xl font-semibold mb-2">No articles found</h3>
-            <p className="text-gray-600 dark:text-gray-400">
-              Try adjusting your search or category selection
+          <div className="text-center py-16 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h3 className="text-xl font-semibold mb-2">{t.noArticlesFound}</h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">
+              {t.tryAdjusting}
             </p>
+            <button 
+              onClick={() => { 
+                setSearchQuery(''); 
+                handleCategoryChange('All');
+              }}
+              className="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors"
+            >
+              {t.resetFilters}
+            </button>
           </div>
         )}
       </div>
@@ -111,19 +268,19 @@ export default function BlogPage() {
       {/* Newsletter Signup */}
       <div className="bg-gray-100 dark:bg-gray-800 py-16 px-4">
         <div className="container mx-auto max-w-2xl text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-3">Subscribe to Our Newsletter</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-3">{t.subscribeNewsletter}</h2>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            Get the latest articles, tips, and resources delivered straight to your inbox.
+            {t.newsletterDescription}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
             <input
               type="email"
-              placeholder="Your email address"
+              placeholder={t.emailPlaceholder}
               className="flex-grow px-4 py-3 rounded-lg text-gray-800 border focus:ring-2 focus:ring-blue-400 focus:outline-none"
             />
             <button className="btn-primary py-3 px-6 rounded-lg">
-              Subscribe
+              {t.subscribe}
             </button>
           </div>
         </div>
@@ -134,30 +291,29 @@ export default function BlogPage() {
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div>
-              <h3 className="text-xl font-bold text-white mb-4">Diabeto</h3>
+              <h3 className="text-xl font-bold text-white mb-4">My Diabeto</h3>
               <p className="mb-4">Your all-in-one diabetes management app.</p>
               <p>support@diabetoapp.com</p>
             </div>
             
             <div>
-              <h4 className="text-lg font-semibold text-white mb-4">Quick Links</h4>
+              <h4 className="text-lg font-semibold text-white mb-4">{t.quickLinks}</h4>
               <ul className="space-y-2">
-                <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
-                <li><Link href="/blog" className="hover:text-white transition-colors">Blog</Link></li>
-                <li><Link href="/#features" className="hover:text-white transition-colors">Features</Link></li>
-                <li><Link href="/#download" className="hover:text-white transition-colors">Download</Link></li>
+                <li><Link href="/" className="hover:text-white transition-colors">{t.home}</Link></li>
+                <li><Link href="/blog" className="hover:text-white transition-colors">{t.blog}</Link></li>
+                <li><Link href="/#features" className="hover:text-white transition-colors">{t.features}</Link></li>
+                <li><Link href="https://apps.apple.com/fr/app/my-diabeto/id6737922193?ign-itscg=30200&ign-itsct=apps_box_link&mttnsubad=6737922193&platform=iphone" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">{t.downloadApp}</Link></li>
               </ul>
             </div>
             
             <div>
-              <h4 className="text-lg font-semibold text-white mb-4">Categories</h4>
+              <h4 className="text-lg font-semibold text-white mb-4">{t.categories}</h4>
               <ul className="space-y-2">
                 {categories.filter(cat => cat !== 'All').map(category => (
                   <li key={category}>
                     <button
                       onClick={() => {
-                        setActiveCategory(category);
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        handleCategoryChange(category);
                       }}
                       className="hover:text-white transition-colors"
                     >
@@ -169,7 +325,7 @@ export default function BlogPage() {
             </div>
             
             <div>
-              <h4 className="text-lg font-semibold text-white mb-4">Follow Us</h4>
+              <h4 className="text-lg font-semibold text-white mb-4">{t.followUs}</h4>
               <div className="flex gap-4">
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">
                   <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -191,7 +347,7 @@ export default function BlogPage() {
           </div>
           
           <div className="pt-8 border-t border-gray-800 text-center">
-            <p>© 2024 Diabeto. All rights reserved.</p>
+            <p>{t.copyright}</p>
           </div>
         </div>
       </footer>

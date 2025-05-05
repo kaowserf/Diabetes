@@ -12,8 +12,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Diabeto - Take Control of Your Diabetes",
-  description: "Monitor your blood sugar, track your habits, and live healthier every day with Diabeto app",
+  title: "Diabétiques et sportifs gérez votre sucre en temps réel avec My Diabeto",
+  description: "avec la montre et téléphone c'est très parlant et percutant",
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
@@ -36,25 +36,25 @@ export const metadata = {
   manifest: '/favicon/site.webmanifest',
   metadataBase: new URL('https://diabeto.com'),
   appleWebApp: {
-    title: "Diabeto",
+    title: "My Diabeto",
     statusBarStyle: "default"
   },
   openGraph: {
-    title: "Diabeto - Take Control of Your Diabetes",
-    description: "Monitor your blood sugar, track your habits, and live healthier every day with Diabeto app",
+    title: "Diabétiques et sportifs gérez votre sucre en temps réel avec My Diabeto",
+    description: "avec la montre et téléphone c'est très parlant et percutant",
     images: [{ url: '/favicon/logo.svg' }],
   },
   twitter: {
     card: 'summary',
-    title: "Diabeto - Take Control of Your Diabetes",
-    description: "Monitor your blood sugar, track your habits, and live healthier every day with Diabeto app",
+    title: "Diabétiques et sportifs gérez votre sucre en temps réel avec My Diabeto",
+    description: "avec la montre et téléphone c'est très parlant et percutant",
     images: [{ url: '/favicon/logo.svg' }],
   },
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="fr">
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon/favicon-16x16.svg" sizes="16x16" type="image/svg+xml" />
