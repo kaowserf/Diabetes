@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import BlogCard from '../components/BlogCard';
 import { getAllPosts } from '../data/blogPosts';
 
-export default function BlogPage() {
+// Create a client component that uses useSearchParams
+function BlogContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const allPosts = getAllPosts();
@@ -75,12 +76,6 @@ export default function BlogPage() {
     }
   };
 
-  // Get translations based on current language
-  const t = translations[language];
-
-  // Extract unique categories from posts
-  const categories = ['All', ...new Set(allPosts.map(post => post.category))];
-  
   // Load the saved language preference on initial load
   useEffect(() => {
     const savedLanguage = localStorage.getItem('preferredLanguage');
@@ -105,7 +100,7 @@ export default function BlogPage() {
   
   // Effect to handle URL query parameters
   useEffect(() => {
-    const categoryParam = searchParams.get('category');
+    const categoryParam = searchParams?.get('category');
     if (categoryParam && categories.includes(categoryParam)) {
       setActiveCategory(categoryParam);
     }
@@ -133,6 +128,12 @@ export default function BlogPage() {
     router.push(newUrl, { scroll: false });
   };
   
+  // Extract unique categories from posts
+  const categories = ['All', ...new Set(allPosts.map(post => post.category))];
+  
+  // Get translations based on current language
+  const t = translations[language];
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header/Navigation */}
@@ -352,5 +353,21 @@ export default function BlogPage() {
         </div>
       </footer>
     </div>
+  );
+}
+
+// Main page component with Suspense boundary
+export default function BlogPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-4">Loading Blog...</h2>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mx-auto"></div>
+        </div>
+      </div>
+    }>
+      <BlogContent />
+    </Suspense>
   );
 } 

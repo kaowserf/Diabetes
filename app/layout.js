@@ -32,7 +32,6 @@ export const metadata = {
       },
     ],
   },
-  themeColor: '#1a73e8',
   manifest: '/favicon/site.webmanifest',
   metadataBase: new URL('https://diabeto.com'),
   appleWebApp: {
@@ -50,6 +49,10 @@ export const metadata = {
     description: "avec la montre et téléphone c'est très parlant et percutant",
     images: [{ url: '/favicon/logo.svg' }],
   },
+};
+
+export const viewport = {
+  themeColor: '#1a73e8',
 };
 
 export default function RootLayout({ children }) {
